@@ -1,3 +1,96 @@
+## Scala Shot
+## <span style="color:#e49436">Akka Aktorzy</span>
+
+---
+@title[Wprowadzenie]
+## Biblioteka Akka
+
++++
+@title[Skąd się wzięli aktorzy?]
+## Kto wymyślił aktorów?
+
+---
+@title[Prosty przykład]
+## Prosty przykład aktora wypisującego komunikaty na konsolę
+```scala
+object BasicActor {
+  case object SayHi()
+  case class Say(message: String)
+}
+
+class BasicActor extends Actor {
+
+  def recieve = {
+    case SayHi    => println('Hi!')
+    case Say(msg) => println(msg)
+    case () => 
+    case _        => _
+  }
+}
+```
+
+---
+@title[Tworzenie instancji]
+## 
+
+#### Bez Propertisów
+```scala
+Props[BasicActor];
+```
+
+#### Z propertiesami
+```scala
+class BasicActor(language: String) extends Actor { /*...*/ }
+val actorProps: Props = Props(new BasicActor(lang))
+```
+
+
+---
+@title[Komunikacja z aktorami]
+## Jak się z nimi komunikować?
+
+```scala
+val system: ActorSystem //tworzenie instancji
+val actor: ActorRef
+
+// Pattern tell
+actor.tell(new Say("ugabuga"))
+
+// Pattern ask
+actor.ask[](SayHi())
+```
+
+
+
+@[2-3](Definiowanie zdarzeń)
+@[8-12](Reagowanie na przychodzące wiadomości)
+
+
+---
+@title[Zalety]
+## Jakie są zalety aktorów?
+
+- Upraszczają pisanie aplikacji współbierznych (nie jest potrzebna synchronizacja)
+- Wymuszają niemutowalność |
+- Pozwalają na łatwe skalowanie wszerz |
+- Idealnie wpasowują się w architektórę DDD |
+
++++
+@title[Wady]
+## Nic nie jest bez wad
+
+- Aktorzy są wolniejsi.
+- Może dochodzić do dead-locków. |
+- Zła konfiguracja może doprowadzić do głodzenia aktorów |
+
+---
+---
+---
+---
+---
+---
+---
+---
 @title[Introduction]
 ## The Kitchen Sink
 ##### <span style="font-family:Helvetica Neue; font-weight:bold">A <span style="color:#e49436">Git</span>Pitch Feature Tour</span>
