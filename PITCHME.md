@@ -10,6 +10,13 @@
 ## Kto wymyślił aktorów?
 
 ---
+<!-- nie wiem czy pokazywać -->
+@title[Hierarchiczna struktura]
+#Hierarchia
+
+tutaj jakies zdjecie walnąć
+
+---
 @title[Prosty przykład]
 ## Prosty przykład aktora wypisującego komunikaty na konsolę
 ```scala
@@ -30,9 +37,7 @@ class BasicActor extends Actor {
 ```
 
 ---
-@title[Tworzenie instancji]
-## 
-
+@title[Tworzenie aktorów]
 #### Bez Propertisów
 ```scala
 Props[BasicActor];
@@ -44,10 +49,14 @@ class BasicActor(language: String) extends Actor { /*...*/ }
 val actorProps: Props = Props(new BasicActor(lang))
 ```
 
+@title[Routing]
+```scala
+Przykład routingu
+```
 
 ---
 @title[Komunikacja z aktorami]
-## Jak się z nimi komunikować?
+#### Jak się z nimi komunikować?
 
 ```scala
 val system: ActorSystem //tworzenie instancji
@@ -60,11 +69,39 @@ actor.tell(new Say("ugabuga"))
 actor.ask[](SayHi())
 ```
 
+@[4-5](Wysyłanie wiadomości w stylu <i>fire and forget</i>)
+@[7-8](Wysłanie wiadomość z oczekiwaniem na odpowiedź)
 
+---
+@title[Wewntrzne zmiany stanów]
+#### Aktorzy są mutowalini
 
-@[2-3](Definiowanie zdarzeń)
-@[8-12](Reagowanie na przychodzące wiadomości)
+```scala
+// Przykład z become
+```
 
+---
+@title[Cameo patern]
+#### Przykład z Cameo pattern
+```scala
+Rozbudowany przykład z uzyciem Cameo
+```
+
++++
+@title[Testy do przykładu]
+#### Testy, testy, testy...
+
+```scala
+```
+
+---
+@title[Jak działają dispatchery?]
+#### Najlepiej jakies zdjecia pokazujce mechanizm
+
+Aktualnie wspierane tryby:
+- Single per thread |
+- Multiple trheads per actors |
+- ...
 
 ---
 @title[Zalety]
@@ -82,6 +119,20 @@ actor.ask[](SayHi())
 - Aktorzy są wolniejsi.
 - Może dochodzić do dead-locków. |
 - Zła konfiguracja może doprowadzić do głodzenia aktorów |
+
+---
+@title[Akka Http]
+## Czy mamy jeszcze czas?
+
++++
+@title[Akka Http - z czym to sie je?]
+## Akka Http - z czym sie to je?
+
+---
+@title[Koniec]
+## Koniec
+<!-- TODO: Literówek jest pełno!!!! -->
+## <span style="color:#e49436">Dziekuje za uwage</span>
 
 ---
 ---
