@@ -9,7 +9,7 @@ Bartosz Budnik
 
 - 1973 - Carl Hewitt, Peter Bishop, Richard Steiger.
 - Wprowadza abstrakcję pozwalającą skupić się na problemie podczas pisania wielowątkowych projektów. |
-- Pozwala prosto pisać scalowalne, samo leczące się systemy. |
+- Pozwala prosto pisać skalowalne, samo leczące się systemy. |
 
 ---
 @title[Charakterystyka aktorów]
@@ -65,10 +65,11 @@ class RepeaterActor extends Actor {
 }
 ```
 
-@[4-9](Deklaracja wiadomości.)
-@[12-25](Klasa aktora.)
-@[17-22](Funkcja której zadaniem jest przetwarzanie przychodzących wiadomości.)
-@[20](Become zmieni zachowanie aktora na to zdefiniowane w funkcji quiet)
+@[4-8](Deklaracja wiadomości.)
+@[11-40](Klasa aktora.)
+@[17](Zachowania aktora.)
+@[19-26](Metoda przetwarzająca przychodzące wiadomości.)
+@[22](Become zmieni zachowanie aktora na to zdefiniowane w funkcji quiet)
 @[25](Unbecome zdejmie ze stosu zachowanie.)
 
 +++
@@ -108,7 +109,7 @@ object Repeater extends App {
 
 ```scala
 //pattern tell
-actor.tell(new Say("ugabuga"))
+actor.tell(Say("ugabuga"))
 
 //pattern ask
 implicit val timeout: Timeout = Timeout(2.seconds)
@@ -168,10 +169,32 @@ class DetailsHandler(val originalSender: ActorRef) extends Actor {
 
 @[1-9](Zadaniem DetailsManager jest zebranie wszystkich niezbędnych danych z róznych serwisów.)
 @[4](Manager tworzy dziecko, którego jedynym zadaniem będzie odebranie wszystkich niezbędnych danych.)
-@[5-6](Do aktorów wysyłamy wiadomości z rządaniami obliczeń i ustawiamy DetailsHandera jako nadawcę.)
-@[10](Zapisujemy orginalnego nadawcę żądania do którego przekażemy rezultaty.)
-@[21-25](Przy każdej nowej wiadomości sprawdzamy czy posiadamy już wszystkie dane i odpowiednio na to reagujemy.)
-@[27-30](Po odpowiedzi aktor zostanie zniszczony.)
+@[5-6](Do aktorów wysyłamy wiadomości z żądaniami obliczeń i ustawiamy DetailsHandera jako nadawcę.)
+@[11](Poprzez konstruktor zapisujemy orginalnego nadawcę żądania do którego przekażemy rezultaty.)
+@[16-17](Rezultaty będą zapisywane jako stan aktora.)
+@[20-25,30-34](Przy każdej nowej wiadomości sprawdzony zostanie stan aktora.)
+@[36-40](Po odpowiedzi aktor zostanie zniszczony.)
+
+---
+@title[Wyjątki]
+#### Wyjątki
+
+- Niszczą aktualnie przetwarzaną wiadomość
+- Wystąpienie wyjątku nie niszczy skrzynki aktora
+- Uruchamiany zostaje proces <i>supervisora</i>, który decyduje co się stanie z aktorem.
+
++++
+@title[Przykładowy supervisor]
+
+```scala
+override val supervisorStrategy =
+  OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
+    case _: ArithmeticException      ⇒ Resume
+    case _: NullPointerException     ⇒ Restart
+    case _: IllegalArgumentException ⇒ Stop
+    case _: Exception                ⇒ Escalate
+  }
+```
 
 ---
 @title[Podsumowanie]
