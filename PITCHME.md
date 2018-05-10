@@ -1,20 +1,28 @@
 ## Scala Shot
 ## <span style="color:#e49436">Akka Aktorzy</span>
 
----
-@title[Wprowadzenie]
-## Biblioteka Akka
-
-+++
-@title[Skąd się wzięli aktorzy?]
-## Kto wymyślił aktorów?
+Bartosz Budnik
 
 ---
-<!-- nie wiem czy pokazywać -->
-@title[Hierarchiczna struktura]
-#Hierarchia
+@title[Model aktorów]
+#### Model aktorów
 
-tutaj jakies zdjecie walnąć
+- 1973 - Carl Hewitt, Peter Bishop, Richard Steiger.
+- Wprowadza abstrakcję pozwalającą skupić się na problemie podczas pisania wielowątkowych projektów. |
+- Pozwala prosto pisać scalowalne, samo leczące się systemy. |
+
+---
+@title[Charakterystyka aktorów]
+#### Charakterystyka aktorów
+- Posiadają własny stan, zachowania, oraz skrzynkę pocztową. 
+- Komunikują się pomiędzy sobą za pomoca niemutowalnych wiadomości. | 
+- Idealny system aktorów tworzy hierarchiczną strukturę. |
+- Aktorzy mogą zmieniać swoje zachowania oraz stan wewnętrzny. |
+- Tworzą hierarchiczną strukturę. |
+
+---
+@title[Przykład hierarchii]
+![Przykładowa hierarchia](assets/arch_tree_diagram.png)
 
 ---
 @title[Prosty przykład]
