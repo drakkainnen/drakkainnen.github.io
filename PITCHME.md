@@ -35,6 +35,8 @@ object RepeaterActor {
 
   case class Say(message: String)
   case class SayHi()
+  case class BeQuiet()
+  case class SpeakAgain()
   case class NumberOfAnswers()
 }
 
