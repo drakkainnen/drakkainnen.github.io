@@ -18,35 +18,51 @@ tutaj jakies zdjecie walnąć
 
 ---
 @title[Prosty przykład]
-## Prosty przykład aktora wypisującego komunikaty na konsolę
+#### Prosty przykład aktora wypisującego komunikaty na konsolę
 ```scala
-object BasicActor {
-  case object SayHi()
+object RepeaterActor {
+  def props = Props[RepeaterActor]
+
   case class Say(message: String)
+  case class SayHi()
+  case class NumberOfAnswers()
 }
 
-class BasicActor extends Actor {
+class RepeaterActor extends Actor {
+  import context.become
 
-  def recieve = {
-    case SayHi    => println('Hi!')
-    case Say(msg) => println(msg)
-    case () => 
-    case _        => _
+  private var requests: Int = 0
+
+  override def receive: Receive = {
+    case SayHi() => println("Hi!"); increment()
+    case Say(message) => println(message); increment()
+    case NumberOfAnswers() => println(s"Nr of answers ${requests}")
+    case _ =>
   }
+
+  def increment() = requests += 1
 }
 ```
 
+@[4-9](Deklaracja wiadomości.)
+@[12-25](Klasa aktora.)
+@[17-22](Funkcja której zadaniem jest przetwarzanie przychodzących wiadomości.)
+
 ---
 @title[Tworzenie aktorów]
-#### Bez Propertisów
+#### Tworzenie aktorów
+
+Zalecane jest tworzenie obiektów Props w "helper object'ach"
 ```scala
 Props[BasicActor];
+val actorProps(lang: String): Props = Props(new BasicActor(lang))
+// Ustawianie dodatkowych opcji
+val actorPropsWithRouting(lang: String): Props = Props(new BasicActor(lang))
 ```
 
 #### Z propertiesami
 ```scala
 class BasicActor(language: String) extends Actor { /*...*/ }
-val actorProps: Props = Props(new BasicActor(lang))
 ```
 
 @title[Routing]
@@ -66,7 +82,7 @@ val actor: ActorRef
 actor.tell(new Say("ugabuga"))
 
 // Pattern ask
-actor.ask[](SayHi())
+actor.ask(SayHi()).mapTo[String]
 ```
 
 @[4-5](Wysyłanie wiadomości w stylu <i>fire and forget</i>)
@@ -95,8 +111,10 @@ Rozbudowany przykład z uzyciem Cameo
 ```
 
 ---
-@title[Jak działają dispatchery?]
-#### Najlepiej jakies zdjecia pokazujce mechanizm
+@title[Jak to wszystko działa?]
+#### Jak to wszystko działa?
+
+![Cykl życia wiadomości](assets/akka-message-lifecycle.png)
 
 Aktualnie wspierane tryby:
 - Single per thread |
