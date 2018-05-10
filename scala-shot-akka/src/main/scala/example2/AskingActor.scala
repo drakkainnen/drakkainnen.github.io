@@ -6,15 +6,14 @@ import example2.AskingActor.{QuickOperation, Sum}
 import example2.SleepingActor.GetRandom
 
 object AskingActor {
-  def props(number: Int) = Props(new AskingActor(number))
+  def props: Props = Props[AskingActor]
 
   case class Sum()
-
   case class QuickOperation()
 
 }
 
-class AskingActor(numberOfActors: Int) extends Actor {
+class AskingActor extends Actor {
 
   import akka.pattern.ask
   import akka.pattern.pipe
@@ -23,9 +22,9 @@ class AskingActor(numberOfActors: Int) extends Actor {
 
   implicit val timeout = Timeout(2 seconds)
 
-  val actorA = context.actorOf(SleepingActor.props, "SleepingA")
-  val actorB = context.actorOf(SleepingActor.props, "SleepingB")
-  val actorC = context.actorOf(SleepingActor.props, "SleepingC")
+  private val actorA = context.actorOf(SleepingActor.props, "SleepingA")
+  private val actorB = context.actorOf(SleepingActor.props, "SleepingB")
+  private val actorC = context.actorOf(SleepingActor.props, "SleepingC")
 
   var counter = 0
 
@@ -34,8 +33,8 @@ class AskingActor(numberOfActors: Int) extends Actor {
     case Sum() =>
       val sumResult = for {
         futureA <- ask(actorA, GetRandom(2000)).mapTo[Long]
-        futureB <- ask(actorA, GetRandom(2000)).mapTo[Long]
-        futureC <- ask(actorA, GetRandom(2000)).mapTo[Long]
+        futureB <- ask(actorB, GetRandom(2000)).mapTo[Long]
+        futureC <- ask(actorC, GetRandom(2000)).mapTo[Long]
       } yield futureA + futureB + futureC
       sumResult pipeTo sender()
     case _ =>

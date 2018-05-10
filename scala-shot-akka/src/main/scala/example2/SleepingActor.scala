@@ -14,13 +14,17 @@ object SleepingActor {
 }
 
 class SleepingActor extends Actor {
-  private val randomGenerator = new Random(Calendar.getInstance().getTimeInMillis())
+  import akka.pattern.pipe
+  import context.dispatcher
+
+  private val randomGenerator = new Random(Calendar.getInstance().getTimeInMillis)
 
   override def receive: Receive = {
     case GetRandom(waitMax) =>
       val orgSender = sender()
-      Future(Thread.sleep(randomGenerator.nextLong() % waitMax))
-        .onComplete(_ => orgSender ! randomGenerator.nextLong())
+      val eventualTuple = Future(Thread.sleep(randomGenerator.nextLong() % waitMax))
+        .map(_ => randomGenerator.nextLong() % 100)
+      eventualTuple.pipeTo(orgSender)
     case _ =>
   }
 }

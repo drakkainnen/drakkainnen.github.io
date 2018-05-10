@@ -16,6 +16,7 @@ object RepeaterActor {
 
 class RepeaterActor extends Actor {
   import context.become
+  import context.unbecome
 
   override def receive: Receive = loud
 
@@ -30,7 +31,7 @@ class RepeaterActor extends Actor {
   }
 
   def quiet: Receive = {
-    case SpeakAgain() => println("Lets talk again"); become(loud);
+    case SpeakAgain() => println("Lets talk again"); unbecome();
     case _ =>
   }
 
