@@ -8,6 +8,7 @@ Bartosz Budnik
 #### Model aktorów
 
 - 1973 - Carl Hewitt, Peter Bishop, Richard Steiger.
+- 1986 - firma Ericsson, pierwszy system oparty na aktorach 99,9999999%.
 - Wprowadza abstrakcję pozwalającą skupić się na problemie podczas pisania wielowątkowych projektów. |
 - Pozwala prosto pisać skalowalne, samo leczące się systemy. |
 
@@ -70,7 +71,8 @@ class RepeaterActor extends Actor {
 @[17](Zachowania aktora.)
 @[19-26](Metoda przetwarzająca przychodzące wiadomości.)
 @[22](Become zmieni zachowanie aktora na to zdefiniowane w funkcji quiet)
-@[25](Unbecome zdejmie ze stosu zachowanie.)
+@[27-30](Przygodzące wiadomości będą obsługiwane za pomocą funkcji <i>quiet</i>.)
+@[28](Unbecome zdejmie ze stosu zachowanie.)
 
 +++
 @title[... oraz jego wywołanie]
@@ -205,16 +207,17 @@ class DetailsHandler(val originalSender: ActorRef) extends Actor {
 @[5-6](Do aktorów wysyłamy wiadomości z żądaniami obliczeń i ustawiamy DetailsHandera jako nadawcę.)
 @[11](Poprzez konstruktor zapisujemy orginalnego nadawcę żądania do którego przekażemy rezultaty.)
 @[16-17](Rezultaty będą zapisywane jako stan aktora.)
-@[20-25,30-34](Przy każdej nowej wiadomości sprawdzony zostanie stan aktora.)
-@[36-40](Po odpowiedzi aktor zostanie zniszczony.)
+@[20-25](Przy każdej nowej wiadomości sprawdzony zostanie stan aktora.)
+@[30-34](Sprawdzenie czy rezultaty zostały dostarczone.)
+@[36-40](Wysyłanie wiadomości i zamykanie aktora.)
 
 ---
 @title[Wyjątki]
 #### Wyjątki
 
-- Niszczą aktualnie przetwarzaną wiadomość
-- Wystąpienie wyjątku nie niszczy skrzynki aktora
-- Uruchamiany zostaje proces <i>supervisora</i>, który decyduje co się stanie z aktorem.
+- Niszczą aktualnie przetwarzaną wiadomość. |
+- Wystąpienie wyjątku nie niszczy skrzynki aktora. |
+- Uruchamiany zostaje proces <i>supervisora</i>, który decyduje co się stanie z aktorem. |
 
 +++
 @title[Przykładowy supervisor]
@@ -232,8 +235,16 @@ override val supervisorStrategy =
 ---
 @title[Podsumowanie]
 ## Podsumowanie
+
+---
+@title[Więcej informacji]
+#### Więcej informacji
+
+- <a href="https://akka.io/docs/">Dokumentacja</a> dokumentacjia biblioteki Akka.
+- Książka <a href="https://www.manning.com/books/akka-in-action">Akka in Action</a>.
+- Książka <a href="http://shop.oreilly.com/product/0636920028789.do">Effective Akka</a> - skupia się na dobrych wzorcach. 
+
 ---
 @title[Koniec]
 ## Koniec
-<!-- TODO: Literówek jest pełno!!!! -->
 ## <span style="color:#e49436">Dziekuję za uwagę</span>
