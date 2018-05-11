@@ -1,6 +1,5 @@
 ## Scala Shot
 ## <span style="color:#e49436">Akka Aktorzy</span>
-
 Bartosz Budnik
 
 ---
@@ -10,13 +9,13 @@ Bartosz Budnik
 - 1973 - Carl Hewitt, Peter Bishop, Richard Steiger.
 - 1986 - firma Ericsson, pierwszy system oparty na aktorach 99,9999999%.
 - Wprowadza abstrakcję pozwalającą skupić się na problemie podczas pisania wielowątkowych projektów. |
-- Pozwala prosto pisać skalowalne, samo leczące się systemy. |
+- Pozwala prosto pisać skalowalne, samoleczące się systemy. |
 
 ---
 @title[Charakterystyka aktorów]
 #### Charakterystyka aktorów
 - Posiadają własny stan, zachowania, oraz skrzynkę pocztową. 
-- Komunikują się pomiędzy sobą za pomoca niemutowalnych wiadomości. | 
+- Komunikują się pomiędzy sobą za pomocą niemutowalnych wiadomości. | 
 - Aktorzy mogą zmieniać swoje zachowania oraz stan wewnętrzny. |
 - Tworzą hierarchiczną strukturę. |
 
@@ -69,9 +68,9 @@ class RepeaterActor extends Actor {
 @[11-40](Klasa aktora.)
 @[17](Zachowania aktora.)
 @[19-26](Metoda przetwarzająca przychodzące wiadomości.)
-@[22](Become zmieni zachowanie aktora na to zdefiniowane w funkcji quiet)
-@[27-30](Przygodzące wiadomości będą obsługiwane za pomocą funkcji <i>quiet</i>.)
-@[28](Unbecome zdejmie ze stosu zachowanie.)
+@[22](<i>Become</i> zmieni zachowanie aktora na to zdefiniowane w funkcji quiet)
+@[27-30](Przychodzące wiadomości będą obsługiwane za pomocą funkcji <i>quiet</i>.)
+@[28](<i>Unbecome</i> zdejmie ze stosu zachowanie.)
 
 +++
 @title[... oraz jego wywołanie]
@@ -201,7 +200,7 @@ class DetailsHandler(val originalSender: ActorRef) extends Actor {
 }
 ```
 
-@[1-9](Zadaniem DetailsManager jest zebranie wszystkich niezbędnych danych z róznych serwisów.)
+@[1-9](Zadaniem DetailsManager jest zebranie wszystkich niezbędnych danych z różnych serwisów.)
 @[4](Manager tworzy dziecko, którego jedynym zadaniem będzie odebranie wszystkich niezbędnych danych.)
 @[5-6](Do aktorów wysyłamy wiadomości z żądaniami obliczeń i ustawiamy DetailsHandera jako nadawcę.)
 @[11](Poprzez konstruktor zapisujemy orginalnego nadawcę żądania do którego przekażemy rezultaty.)
@@ -239,7 +238,7 @@ override val supervisorStrategy =
 @title[Więcej informacji]
 #### Więcej informacji
 
-- <a href="https://akka.io/docs/">Dokumentacja</a> dokumentacjia biblioteki Akka.
+- <a href="https://akka.io/docs/">Dokumentacja</a> biblioteki Akka.
 - Książka <a href="https://www.manning.com/books/akka-in-action">Akka in Action</a>.
 - Książka <a href="http://shop.oreilly.com/product/0636920028789.do">Effective Akka</a> - skupia się na dobrych wzorcach. 
 
