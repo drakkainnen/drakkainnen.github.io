@@ -22,11 +22,9 @@ Bartosz Budnik
 
 +++
 @title[Przykład hierarchii]
-
+#### Przykład hierarchii
 
 ![Przykładowa hierarchia](assets/arch_tree_diagram.png)
-</br>
-Przykładowa hierarchia aktorów
 
 ---
 @title[Prosty przykład...]
@@ -216,9 +214,9 @@ class DetailsHandler(val originalSender: ActorRef) extends Actor {
 @title[Wyjątki]
 #### Wyjątki
 
-- Niszczą aktualnie przetwarzaną wiadomość. |
+- Niszczą aktualnie przetwarzaną wiadomość. 
 - Wystąpienie wyjątku nie niszczy skrzynki aktora. |
-- Uruchamiany zostaje proces <i>supervisora</i>, który decyduje co się stanie z aktorem. |
+- Uruchamiany zostaje proces "supervisora", który decyduje co się stanie z aktorem. |
 
 +++
 @title[Przykładowy supervisor]
