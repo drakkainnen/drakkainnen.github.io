@@ -25,6 +25,7 @@ Bartosz Budnik
 
 
 ![Przykładowa hierarchia](assets/arch_tree_diagram.png)
+</br>
 Przykładowa hierarchia aktorów
 
 ---
