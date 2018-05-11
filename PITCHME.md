@@ -7,7 +7,7 @@ Bartosz Budnik
 #### Model aktorów
 
 - 1973 - Carl Hewitt, Peter Bishop, Richard Steiger.
-- 1986 - firma Ericsson, pierwszy system oparty na aktorach 99,9999999%.
+- 1986 - firma Ericsson, pierwszy system oparty na aktorach 99,9999999%. |
 - Wprowadza abstrakcję pozwalającą skupić się na problemie podczas pisania wielowątkowych projektów. |
 - Pozwala prosto pisać skalowalne, samoleczące się systemy. |
 
