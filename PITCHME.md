@@ -19,11 +19,20 @@ Bartosz Budnik
 - Aktorzy mogą zmieniać swoje zachowania oraz stan wewnętrzny. |
 - Tworzą hierarchiczną strukturę. |
 
+Note:
+- Silna enkapsulacja. Nie wystawiają, żadnych metod które umozliwiłyby jakikolwiek dostęp do ich stanu wewnętrznego.
+- Hierarchiczna struktura pozwala na wprowadzenie mechanizmów reagowania na wyjątki.
+
 +++
 @title[Przykład hierarchii]
 #### Przykład hierarchii
 
 ![Przykładowa hierarchia](assets/arch_tree_diagram.png)
+
+Note:
+- Root guardian jest rodzicem wszystkich aktorów.
+- User guardian jest z kolei rodzicem wszystkich aktorów uzytkownika.
+- Supervisor - nadzorca
 
 ---
 @title[Prosty przykład...]
@@ -102,6 +111,11 @@ object Repeater extends App {
 #### Jak to wszystko działa?
 
 ![Cykl życia wiadomości](assets/akka-message-lifecycle.png)
+
+Note:
+W przypadku wiadomości wysyłanych z funkcji main - NoSender
+Dyspozytor - zarządza pulami wątków, wkłada wiadomości do kolejki, wiadomości są zdejmowane ze skrzynki i wykonywane w kontekście danego aktora
+dyspozytorów może być wielu
 
 ---
 @title[Komunikacja z aktorami]
@@ -235,10 +249,19 @@ override val supervisorStrategy =
   }
 ```
 
+Note:
+Zaprezentowana tutaj strategia mówi, że wyjątek dziecka będzie dotyczył tylko jednego dziecka.
+ManyForOne - dotyczyć będzie wszystkich dzieci danego aktora.
+
 ---
 @title[Podsumowanie]
 ## Podsumowanie
 
+Note:
+aktorzy z pewnością są ciekawą technologią wartą przemyślenia przy tworzeniu systemów rozproszonych.
+Jest jeszcze wiele aspektów dotyczących aktorów o których nie wspomniałem.
+Jak chociażby Persystencja aktorów - zapisywanie stanu w rozproszoniej bazie.
+Akka cluster, sharding, zarządzanie
 ---
 @title[Więcej informacji]
 #### Więcej informacji
