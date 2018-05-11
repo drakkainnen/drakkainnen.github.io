@@ -81,6 +81,11 @@ class RepeaterActor extends Actor {
 @[27-30](Przychodzące wiadomości będą obsługiwane za pomocą funkcji <i>quiet</i>.)
 @[28](<i>Unbecome</i> zdejmie ze stosu zachowanie.)
 
+Note:
+Przykład aktora którego jedynym zadaniem jest wypisywanie wiadomości na konsolę.
+Deklaracji wiadomości.
+
+
 +++
 @title[... oraz jego wywołanie]
 #### ... oraz jego wywołanie
