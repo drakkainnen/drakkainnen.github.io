@@ -119,6 +119,11 @@ val future: Future[String] = actor.ask(SayHi()).mapTo[String]
 @[1-2](Wysyłanie wiadomości w stylu <i>fire and forget</i>. Zalecany sposób komunikacji z aktorami.)
 @[4-6](Wysłanie wiadomość z oczekiwaniem na odpowiedź. Ma swoje wady.)
 
+Note:
+- Podanie dodatkowego parametru
+- Stacktrace przy wystapieniu Timeouta jest najczęsciej mało intuicyjny
+- Instancjonowany jest AskPromiseActor, który marnuje zasoby.
+
 ---
 @title[Użycie paternu ask]
 #### Użycie paternu ask
